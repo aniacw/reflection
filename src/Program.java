@@ -9,18 +9,18 @@ import java.util.Scanner;
 
 public class Program {
 
-    public static class Person{
+    public static class Person {
         public String name;
         public String surname;
         public int age;
 
         public Person(String name, String surname, int age) {
             this.name = name;
-            this.surname=surname;
+            this.surname = surname;
             this.age = age;
         }
 
-        public void getOlder(){
+        public void getOlder() {
             ++age;
         }
 
@@ -34,7 +34,8 @@ public class Program {
         }
     }
 
-    public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException, ClassNotFoundException {
+    public static void main(String[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
+            InstantiationException, ClassNotFoundException {
 
         System.out.println(Person.class.getName());
 
@@ -43,9 +44,7 @@ public class Program {
 //        Method[] methods = c.getMethods();
 
 
-
-
-        Scanner scanner=new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
         String className = scanner.nextLine();
 
@@ -59,7 +58,6 @@ public class Program {
         Object newPerson = ctor.newInstance(name, surname, age);
 
         System.out.println(newPerson);
-
 
 
 //        String fieldName = scanner.nextLine();
