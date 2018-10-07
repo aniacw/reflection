@@ -111,6 +111,7 @@ public class ObjectManager {
 
         Clothing pants = new Clothing("pants", 38, "blue", 100.00);
         ObjectManager o = new ObjectManager((Object) pants);
+        o.get("size");
     }
 }
 
