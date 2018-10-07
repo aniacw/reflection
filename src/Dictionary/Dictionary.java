@@ -6,13 +6,23 @@ import java.util.Map;
 
 public class Dictionary {
 
-    Map<String, Object> membersDictionary(Object o) {
+    Map<String, Object> membersDictionary(Object o) throws IllegalAccessException {
         Class aclass = o.getClass();
         Field[] fields = aclass.getDeclaredFields();
         Map<String, Object> newMap = new HashMap<>();
 
+//        for(Field f : fields){
+//            try {
+//                f.setAccessible(true);
+//            } catch (IllegalArgumentException e){
+//                e.printStackTrace();
+//            }
+//
+//        }
+
+
         for (int i = 0; i < fields.length; i++) {
-            newMap.put(String.valueOf(fields[i]), fields[i]);
+            newMap.put(fields[i].getName(), fields[i].get(o));
         }
         return newMap;
     }
@@ -26,7 +36,11 @@ public class Dictionary {
         Clothing blazer = new Clothing("blazer", 40, "yellow", 150.00);
         Clothing troursers = new Clothing("trousers", 42, "navy", 130.05);
 
-        dictionary.membersDictionary(dress);
+        try {
+            dictionary.membersDictionary(dress);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 }
 
