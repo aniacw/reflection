@@ -10,13 +10,13 @@ public class ObjectManager {
 
     private Object object;
 
-    Class aClass = object.getClass();
-    Field[] field = aClass.getFields();
-    int i = 0;
-    String fieldName = field[i].getName();
+    Class aClass;
+    Field[] field;
 
     public ObjectManager(Object object) {
         this.object = object;
+        aClass = object.getClass();
+        field = aClass.getFields();
     }
 
     //set - ustawia pole o nazwie na wartość
@@ -31,10 +31,7 @@ public class ObjectManager {
             }
     }
 
-    //get - pobiera wartość pola o nazwie
-    Object fieldValue = null;
-
-    public Object get(String fieldName) {
+    public Object get(String fieldName) throws IllegalAccessException {
 //        for (Field f : field) {
 //            if (fieldName.equals(f.getName())) {
 //                fieldValue = (Object) f[];
@@ -42,14 +39,12 @@ public class ObjectManager {
 //        }
         for (int i = 0; i < field.length; i++) {
             if (fieldName.equals(field[i].getName()))
-                fieldValue = (Object) field[i];
+                return field[i].get(object);
         }
-        return fieldValue;
+        return null;
     }
 
-//    public Map<String, Object> fieldDictionary() {
-//    }
-
+   
     //read - wczytuje z konsoli wartość pola o nazwie używając Scannera
     public void read(String fieldName) {
         Scanner scanner = new Scanner(System.in);
@@ -97,7 +92,9 @@ public class ObjectManager {
     //printAll - wyświetla wszystkie nazwy pól i ich wartości (imituje domyślnie wygenerowaną metodę toString) różnica jest
 // taka że będzie działać tak jak chcemy nawet dla obiektów które nie nadpisują metody toString albo obią to w niestandardowej formie.
     public void printAll() {
+        String fieldName= "";
         for (Field f : field) {
+            fieldName=f.getName();
             try {
                 System.out.println("Value of " + fieldName + " is: " + f.get(object));
             } catch (IllegalAccessException e) {
@@ -107,11 +104,11 @@ public class ObjectManager {
     }
 
 
-    public static void main(String[] args) {
-
+    public static void main(String[] args) throws IllegalAccessException {
         Clothing pants = new Clothing("pants", 38, "blue", 100.00);
         ObjectManager o = new ObjectManager((Object) pants);
-        o.get("size");
+        System.out.println(o.get("size"));
+        System.out.println(o.get("siz"));
     }
 }
 
